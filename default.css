@@ -3,11 +3,13 @@ body{
     font-size: 14px;
     color: #646464;
     background-color: #fff;
+    /* background-color: darkgray; */
 }
 
 div{
     display: block;
 }
+
 
 table{
     /*margin-top: 4px;*/

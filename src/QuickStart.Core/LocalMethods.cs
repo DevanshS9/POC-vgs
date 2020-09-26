@@ -5,19 +5,15 @@ namespace QuickStart.Core
 {
     public class LocalMethods
     {
-        public async Task<object> GetAppDomainDirectory(dynamic input)
+        public async Task<object> fooSubmit(dynamic input)
         {
-            return AppDomain.CurrentDomain.BaseDirectory;
+            //return AppDomain.CurrentDomain.BaseDirectory;
+            return " You pressed Submit";
         }
 
-        public async Task<object> GetCurrentTime(dynamic input)
+        public async Task<object> fooClickhere(dynamic input)
         {
-            return DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            return "You pressed Click here";
         }
-
-        public async Task<object> UseDynamicInput(dynamic input)
-        {
-            return $".NET Core welcomes {input}";
-        }
-    }
+}
 }

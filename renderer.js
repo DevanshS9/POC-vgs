@@ -7,60 +7,50 @@ const baseNetAppPath = path.join(__dirname, '/src/'+ namespace +'/bin/Debug/net'
 
 process.env.EDGE_USE_CORECLR = 1;
 if(version !== 'standard')
-    process.env.EDGE_APP_ROOT = baseNetAppPath;
+   process.env.EDGE_APP_ROOT = baseNetAppPath;
 
 var edge = require('electron-edge-js');
 
 var baseDll = path.join(baseNetAppPath, namespace + '.dll');
 
 var localTypeName = namespace + '.LocalMethods';
-var externalTypeName = namespace + '.ExternalMethods';
 
-var getAppDomainDirectory = edge.func({
+var foosubmit = edge.func({
     assemblyFile: baseDll,
     typeName: localTypeName,
-    methodName: 'GetAppDomainDirectory'
+    methodName: 'fooSubmit'
 });
 
-var getCurrentTime = edge.func({
+var fooclick = edge.func({
     assemblyFile: baseDll,
     typeName: localTypeName,
-    methodName: 'GetCurrentTime'
+    methodName: 'fooClickhere'
 });
 
-var useDynamicInput = edge.func({
-    assemblyFile: baseDll,
-    typeName: localTypeName,
-    methodName: 'UseDynamicInput'
-});
 
-var getPerson = edge.func({
-    assemblyFile: baseDll,
-    typeName: externalTypeName,
-    methodName: 'GetPersonInfo'
-});
 
 
 window.onload = function() {
+    var submitBtn=document.getElementById('submitBtn');
+    const clickBtn=document.getElementById('clickBtn');
 
-    getAppDomainDirectory('', function(error, result) {
-        if (error) throw error;
-        document.getElementById("GetAppDomainDirectory").innerHTML = result;
-    });
+    submitBtn.addEventListener('click',submit);
+    clickBtn.addEventListener('click',clickButton);
 
-    getCurrentTime('', function(error, result) {
-        if (error) throw error;
-        document.getElementById("GetCurrentTime").innerHTML = result;
-    });
+   
+    function submit(){
+        console.log("inside submit button..")
+        foosubmit('', function(error, result) {
+                if (error) throw error;
+                 document.getElementById("display").innerHTML = result;
+             });
+    }
 
-    useDynamicInput('Node.Js', function(error, result) {
-        if (error) throw error;
-        document.getElementById("UseDynamicInput").innerHTML = result;
-    });
-
-    getPerson('', function(error, result) {
-        //if (error) throw JSON.stringify(error);
-        document.getElementById("GetPersonInfo").innerHTML = result;
-    });
-
+    function clickButton(){
+        console.log("inside click button..")
+        fooclick('', function(error, result) {
+                if (error) throw error;
+                 document.getElementById("display").innerHTML = result;
+             });
+    }
 };
